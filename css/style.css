@@ -1,0 +1,1135 @@
+/* Variables */
+:root {
+    --primary-color: #ff3366;
+    --secondary-color: #111111;
+    --accent-color: #00ffcc;
+    --dark-bg: #000000;
+    --light-text: #ffffff;
+    --card-bg: rgba(17, 17, 17, 0.9);
+    --gradient-primary: linear-gradient(45deg, #ff3366, #ff6b3d);
+    --gradient-accent: linear-gradient(45deg, #00ffcc, #00ff9d);
+    --gradient-dark: linear-gradient(to right, #111111, #1a1a1a);
+    --border-glow: 0 0 10px var(--accent-color);
+    --text-glow: 0 0 20px var(--accent-color);
+}
+
+/* Global Styles */
+body {
+    font-family: 'Raleway', sans-serif;
+    background: linear-gradient(135deg, var(--dark-bg), #1a0a1a);
+    color: var(--light-text);
+    min-height: 100vh;
+    padding-top: 76px; /* Hauteur de la navbar */
+}
+
+section:not(.hero-section) {
+    padding-top: 2rem;
+}
+
+.page-title {
+    margin-top: 2rem;
+    margin-bottom: 3rem;
+    text-align: center;
+    color: var(--accent-color);
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Navigation */
+.navbar {
+    background-color: rgba(17, 17, 17, 0.95) !important;
+    backdrop-filter: blur(10px);
+    border: none;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    padding: 1rem 0;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+}
+
+.navbar::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+    animation: borderGlow 4s infinite;
+}
+
+@keyframes borderGlow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+.navbar-brand {
+    color: var(--light-text) !important;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 800;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    position: relative;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 15px rgba(255, 51, 102, 0.5);
+}
+
+.nav-link {
+    color: var(--accent-color) !important;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    padding: 0.8rem 1.2rem;
+    margin: 0 0.5rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+    background: rgba(0, 255, 204, 0.1);
+    border-radius: 4px;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent-color);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease;
+    box-shadow: 0 0 10px var(--accent-color);
+}
+
+.nav-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.nav-link:hover {
+    color: var(--light-text) !important;
+    background: var(--gradient-accent);
+    text-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+}
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    margin-top: -76px; /* Compenser le padding-top du body */
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../image/photo-acceuil.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+}
+
+.hero-title {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: var(--accent-color);
+}
+
+/* Buttons */
+.btn-primary {
+    background: var(--gradient-primary);
+    border: none;
+    padding: 15px 40px;
+    color: var(--light-text) !important;
+    font-weight: 600;
+    letter-spacing: 1px;
+    position: relative;
+    clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+    transition: all 0.3s ease;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-accent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.btn-primary:hover::before {
+    opacity: 0.2;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    color: var(--light-text) !important;
+}
+
+/* Features Section */
+.feature-card {
+    background: rgba(17, 17, 17, 0.8);
+    padding: 2rem;
+    clip-path: polygon(20px 0, 100% 0, calc(100% - 20px) 100%, 0 100%);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 255, 204, 0.2);
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: var(--gradient-accent);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.feature-card:hover::before {
+    opacity: 0.1;
+}
+
+.feature-card .feature-icon {
+    color: var(--accent-color);
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+    transform: scale(1.1);
+    color: var(--primary-color);
+}
+
+/* Rooms Section */
+.room-card {
+    background: rgba(17, 17, 17, 0.8);
+    clip-path: polygon(0 0, 100% 0, calc(100% - 20px) 100%, 20px 100%);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    position: relative;
+    border: 1px solid rgba(0, 255, 204, 0.2);
+}
+
+.room-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: var(--gradient-accent);
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.room-card:hover::before {
+    opacity: 0.1;
+}
+
+.room-card .room-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transform: scale(1.05);
+    transition: transform 0.5s ease;
+}
+
+.room-card:hover .room-image {
+    transform: scale(1.15);
+}
+
+.room-card .room-content {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7));
+    padding: 2rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(calc(100% - 80px));
+    transition: transform 0.3s ease;
+}
+
+.room-card:hover .room-content {
+    transform: translateY(0);
+}
+
+.room-description {
+    color: var(--light-text);
+    margin-bottom: 1rem;
+    opacity: 0.9;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    max-height: 100px;
+    overflow-y: auto;
+}
+
+.room-details .badge {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.room-details .difficulty {
+    color: var(--accent-color);
+    font-size: 0.9rem;
+}
+
+.room-details .difficulty i {
+    margin-right: 0.5rem;
+}
+
+.room-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--accent-color);
+}
+
+.room-card .room-title {
+    color: var(--accent-color);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    transition: color 0.3s ease;
+}
+
+.room-card:hover .room-title {
+    color: var(--primary-color);
+}
+
+/* FAQ Styles */
+.accordion-item {
+    background: rgba(17, 17, 17, 0.8);
+    border: 1px solid rgba(0, 255, 204, 0.2);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.accordion-item:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.2);
+}
+
+.accordion-button {
+    background: transparent !important;
+    color: var(--accent-color) !important;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.accordion-button i {
+    font-size: 1.2rem;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+}
+
+.accordion-button:hover i {
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+.accordion-collapse {
+    transition: all 0.3s ease-in-out;
+}
+
+.accordion-collapse.show {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.accordion-button:not(.collapsed) {
+    color: var(--light-text) !important;
+    background: linear-gradient(90deg, rgba(0, 255, 204, 0.1), transparent) !important;
+    box-shadow: none;
+}
+
+.accordion-button::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2300ffcc'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e") !important;
+}
+
+.accordion-body {
+    background: rgba(0, 0, 0, 0.3);
+    color: var(--light-text);
+    padding: 2rem;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.accordion-body ul, .accordion-body ol {
+    padding-left: 1.5rem;
+}
+
+.accordion-body li {
+    margin-bottom: 0.8rem;
+    position: relative;
+}
+
+.accordion-body ul li::before {
+    content: '•';
+    color: var(--accent-color);
+    font-weight: bold;
+    position: absolute;
+    left: -1.2rem;
+}
+
+.accordion-body ol {
+    counter-reset: faq-counter;
+}
+
+.accordion-body ol li {
+    counter-increment: faq-counter;
+    padding-left: 0.5rem;
+}
+
+.accordion-body ol li::before {
+    content: counter(faq-counter) '.';
+    color: var(--accent-color);
+    font-weight: bold;
+    position: absolute;
+    left: -1.5rem;
+}
+
+/* Contact Page Styles */
+.contact-card, .contact-form-card {
+    background: rgba(17, 17, 17, 0.8);
+    border: 1px solid rgba(0, 255, 204, 0.2);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.contact-card:hover, .contact-form-card:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.1);
+}
+
+.project-description {
+    color: var(--light-text);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    opacity: 0.9;
+}
+
+.info-item {
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.info-item:hover {
+    transform: translateY(-5px);
+    background: rgba(0, 255, 204, 0.1);
+}
+
+.info-item i {
+    font-size: 2rem;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.info-item h3 {
+    color: var(--light-text);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.info-item p {
+    color: var(--light-text);
+    opacity: 0.8;
+    margin-bottom: 0;
+}
+
+.contact-form .form-control {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(0, 255, 204, 0.2);
+    color: var(--light-text);
+    transition: all 0.3s ease;
+}
+
+.contact-form .form-control:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 0.25rem rgba(0, 255, 204, 0.25);
+}
+
+.contact-form .form-floating label {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.contact-form .form-floating > .form-control:focus ~ label,
+.contact-form .form-floating > .form-control:not(:placeholder-shown) ~ label {
+    color: var(--accent-color);
+    opacity: 0.8;
+}
+
+.contact-form .btn-primary {
+    background: var(--gradient-accent);
+    border: none;
+    padding: 1rem 2.5rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.contact-form .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 204, 0.3);
+}
+
+.map-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 255, 204, 0.2);
+}
+
+.map-container iframe {
+    filter: grayscale(0.8) invert(0.9) hue-rotate(180deg);
+    transition: all 0.3s ease;
+}
+
+.map-container:hover iframe {
+    filter: grayscale(0) invert(0) hue-rotate(0deg);
+}
+
+/* Reservation Page Styles */
+.reservation-section {
+    padding: 4rem 0;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.reservation-title {
+    color: var(--light-text);
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+}
+
+.reservation-title:after {
+    content: '';
+    display: block;
+    width: 100px;
+    height: 3px;
+    background: var(--accent-color);
+    margin: 1rem auto;
+}
+
+/* Room Cards Styles */
+.room-card {
+    position: relative;
+    height: 400px;
+    perspective: 1000px;
+    margin-bottom: 2rem;
+}
+
+.room-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.room-card:hover .room-card-inner {
+    transform: rotateY(180deg);
+}
+
+.room-card-front,
+.room-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.room-card-front {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.95));
+    border: 2px solid var(--accent-color);
+    color: var(--light-text);
+}
+
+.room-card-back {
+    background: rgba(0, 0, 0, 0.95);
+    transform: rotateY(180deg);
+    border: 2px solid var(--accent-color);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: var(--light-text);
+}
+
+.room-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.room-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.7);
+}
+
+.room-content-front {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem;
+    background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0.5));
+    color: var(--light-text);
+    text-align: left;
+}
+
+.room-title {
+    color: var(--accent-color);
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+}
+
+.room-difficulty {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.room-description {
+    color: var(--light-text);
+    margin-bottom: 2rem;
+    line-height: 1.8;
+    font-size: 1.1rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+.room-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: auto;
+}
+
+.room-detail {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 1rem;
+    border-radius: 10px;
+    border: 1px solid var(--accent-color);
+    text-align: center;
+    color: var(--light-text);
+}
+
+.room-detail i {
+    color: var(--accent-color);
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.room-detail span {
+    color: var(--light-text);
+    font-size: 0.9rem;
+    display: block;
+}
+
+.room-card:hover .room-image img {
+    transform: scale(1.1);
+    transition: transform 0.8s ease;
+}
+
+.reservation-form {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 2.5rem;
+    border-radius: 20px;
+    border: 2px solid var(--accent-color);
+    box-shadow: 0 0 30px rgba(0, 255, 204, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.reservation-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, rgba(0, 255, 204, 0.1), transparent);
+    pointer-events: none;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+.form-label {
+    color: var(--accent-color);
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.form-control,
+.form-select {
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(0, 255, 204, 0.2);
+    color: var(--light-text);
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background: rgba(0, 0, 0, 0.7);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.2);
+    outline: none;
+    color: var(--light-text);
+}
+
+.form-floating > .form-control,
+.form-floating > .form-select {
+    height: calc(3.5rem + 2px);
+    line-height: 1.25;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: var(--light-text);
+}
+
+.form-floating > .form-control::placeholder {
+    color: transparent;
+}
+
+.form-floating > .form-control:not(:placeholder-shown) {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: var(--light-text);
+}
+
+.form-floating > label {
+    padding: 1rem 1.2rem;
+    color: var(--light-text);
+    height: 100%;
+    transform-origin: 0 0;
+    transition: opacity .1s ease-in-out, transform .1s ease-in-out;
+    background: transparent;
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label,
+.form-floating > .form-select ~ label {
+    opacity: .8;
+    transform: scale(.85) translateY(-0.5rem) translateX(0.15rem);
+    color: var(--accent-color);
+}
+
+.btn-reserve {
+    background: linear-gradient(45deg, var(--accent-color), #00cc99);
+    color: #000;
+    border: none;
+    padding: 1.2rem 2.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-reserve::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.btn-reserve:hover::before {
+    left: 100%;
+}
+
+.btn-reserve:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 255, 204, 0.3);
+    background: linear-gradient(45deg, #00cc99, var(--accent-color));
+}
+
+.btn-reserve:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 255, 204, 0.2);
+}
+
+/* Styles pour la carte de détails de la salle */
+.room-details-card {
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid var(--accent-color);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    opacity: 0;
+}
+
+.room-details-card.visible {
+    opacity: 1;
+}
+
+.room-details-card .room-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.room-details-card .room-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.room-details-card:hover .room-image img {
+    transform: scale(1.05);
+}
+
+.room-details-card .room-info {
+    padding: 1.5rem;
+}
+
+.room-details-card .room-name {
+    color: var(--accent-color);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.room-details-card .room-description {
+    color: #fff;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.room-details-card .room-specs {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.room-details-card .spec {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent-color);
+}
+
+.room-details-card .spec i {
+    font-size: 1.2rem;
+}
+
+.room-details-card .spec span {
+    color: #fff;
+    font-size: 0.9rem;
+}
+
+.room-summary-title {
+    color: var(--accent-color);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+/* Styles pour les créneaux horaires */
+.time-slots-section {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.time-slots-title {
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.time-slots {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 0.8rem;
+}
+
+.time-slot {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--accent-color);
+    border-radius: 8px;
+    padding: 0.8rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.time-slot:hover {
+    background: rgba(0, 255, 204, 0.1);
+    transform: translateY(-2px);
+}
+
+.time-slot.selected {
+    background: var(--accent-color);
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+}
+
+.time-slot i {
+    font-size: 1.2rem;
+    color: var(--accent-color);
+}
+
+.time-slot span {
+    font-size: 0.9rem;
+    color: #fff;
+}
+
+.time-slot:hover i {
+    color: var(--accent-color);
+}
+
+.time-slot.selected i,
+.time-slot.selected span {
+    color: #000;
+}
+
+.time-slot.selected {
+    background: var(--accent-color);
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.3);
+}
+
+.room-summary-image {
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    border: 2px solid var(--accent-color);
+}
+
+.room-summary-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.room-summary-image:hover img {
+    transform: scale(1.05);
+}
+
+.room-summary-name {
+    color: var(--light-text);
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.room-summary-description {
+    color: var(--light-text);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.room-summary-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.summary-detail {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 0.8rem;
+    border-radius: 8px;
+    text-align: center;
+    border: 1px solid var(--accent-color);
+}
+
+.summary-detail i {
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.summary-detail span {
+    color: var(--light-text);
+    font-size: 0.9rem;
+    display: block;
+}
+
+/* Validation styles */
+.was-validated .form-control:valid,
+.was-validated .form-select:valid {
+    border-color: var(--accent-color);
+    background-image: none;
+}
+
+.was-validated .form-control:invalid,
+.was-validated .form-select:invalid {
+    border-color: #ff4444;
+    background-image: none;
+}
+
+/* Custom select arrow */
+.form-select {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2300ffcc' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 16px 12px;
+}
+
+.alert {
+    background: rgba(0, 0, 0, 0.8);
+    border-left: 4px solid;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    color: var(--light-text);
+    border-radius: 8px;
+}
+
+.alert-success {
+    border-color: var(--accent-color);
+}
+
+.alert-danger {
+    border-color: #ff4444;
+}
+
+/* Time slots styles */
+.time-slots {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.time-slot {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    padding: 0.5rem;
+    text-align: center;
+    color: var(--light-text);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.time-slot:hover {
+    background: rgba(0, 255, 204, 0.2);
+    border-color: var(--accent-color);
+}
+
+.time-slot.selected {
+    background: var(--accent-color);
+    color: #000;
+    border-color: var(--accent-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    
+    .nav-link {
+        font-size: 1rem;
+        padding: 0.5rem 1rem;
+    }
+}
