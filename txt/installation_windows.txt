@@ -1,0 +1,108 @@
+Installation et Compilation du Projet JavaFX avec Maven (Windows)
+====================================================
+
+1. Installation de Java sur Windows
+--------------------------------
+a) Télécharger OpenJDK 17 :
+   - Aller sur : https://adoptium.net/
+   - Télécharger Eclipse Temurin JDK 17 pour Windows
+   - Exécuter le fichier .msi téléchargé
+   - Cocher "Add to PATH" pendant l'installation
+
+b) Vérifier l'installation (dans CMD ou PowerShell) :
+   java --version
+
+2. Installation de Maven sur Windows
+---------------------------------
+a) Télécharger Maven :
+   - Aller sur : https://maven.apache.org/download.cgi
+   - Télécharger le Binary zip archive (apache-maven-x.x.x-bin.zip)
+
+b) Installation :
+   - Extraire le fichier zip (par exemple dans C:\Program Files\Apache\maven)
+   - Ajouter le chemin aux variables d'environnement :
+     * Ouvrir "Paramètres système avancés"
+     * Cliquer sur "Variables d'environnement"
+     * Dans "Variables système", modifier "Path"
+     * Ajouter le chemin vers le dossier bin de Maven (ex: C:\Program Files\Apache\maven\bin)
+
+c) Vérifier l'installation (nouveau terminal CMD) :
+   mvn --version
+
+3. Configuration des Variables d'Environnement
+------------------------------------------
+a) Configurer JAVA_HOME :
+   - Ouvrir "Paramètres système avancés"
+   - Cliquer sur "Variables d'environnement"
+   - Dans "Variables système", créer JAVA_HOME
+   - Valeur : chemin vers le JDK (ex: C:\Program Files\Eclipse Adoptium\jdk-17.x.x.x-hotspot)
+
+4. Installation de XAMPP sur Windows
+--------------------------------
+a) Télécharger XAMPP :
+   - Aller sur : https://www.apachefriends.org/
+   - Télécharger la dernière version de XAMPP
+
+b) Installer XAMPP :
+   - Exécuter le fichier xampp-windows-x64-x.x.x-x-VS16-installer.exe
+   - Suivre l'assistant d'installation
+   - Installation recommandée dans C:\xampp
+   - Décocher les composants non nécessaires (garder Apache et MySQL)
+
+c) Configuration après installation :
+   - Lancer XAMPP Control Panel
+   - Démarrer les modules Apache et MySQL
+   - Vérifier que MySQL utilise le port 3306
+   - Accéder à phpMyAdmin : http://localhost/phpmyadmin
+   - Identifiants par défaut : root (pas de mot de passe)
+
+5. Configuration du Projet
+------------------------
+a) Placer le projet dans le dossier htdocs :
+   - Copier le dossier JavaLourd dans C:\xampp\htdocs\
+   - Le chemin final doit être : C:\xampp\htdocs\JavaLourd
+
+b) Configuration de la base de données :
+   - Ouvrir phpMyAdmin (http://localhost/phpmyadmin)
+   - Créer une nouvelle base de données si nécessaire
+   - Importer le fichier SQL du projet si fourni
+
+6. Compilation et Exécution du Projet
+----------------------------------
+a) Ouvrir CMD en tant qu'administrateur
+b) Naviguer vers le projet :
+   cd C:\xampp\htdocs\JavaLourd
+
+c) Nettoyer et compiler :
+   mvn clean compile
+
+d) Exécuter l'application :
+   mvn javafx:run
+
+7. Résolution des problèmes Windows
+--------------------------------
+- Si "mvn" n'est pas reconnu :
+  * Redémarrer CMD après l'installation
+  * Vérifier le Path dans les variables d'environnement
+
+- Si erreur de connexion MySQL :
+  * Vérifier que XAMPP est lancé et MySQL est actif (voyant vert)
+  * Port par défaut : 3306
+  * Utilisateur par défaut : root (pas de mot de passe)
+  * Vérifier les paramètres de connexion dans DatabaseConnection.java
+
+- Si les ports sont déjà utilisés :
+  * Utiliser XAMPP Control Panel pour changer les ports
+  * Mettre à jour les paramètres de connexion dans le code
+
+- Si JavaFX ne se lance pas :
+  * Vérifier JAVA_HOME dans les variables d'environnement
+  * Vérifier que tous les antivirus autorisent l'application
+
+8. Outils de développement recommandés
+-----------------------------------
+- IntelliJ IDEA (recommandé)
+- Eclipse avec le plugin JavaFX
+- Scene Builder pour l'édition des fichiers FXML
+- Git for Windows pour la gestion de version
+- Visual Studio Code avec les extensions Java

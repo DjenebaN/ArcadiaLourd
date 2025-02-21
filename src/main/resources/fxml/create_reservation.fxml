@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.reservation.controller.CreateReservationController"
+            prefHeight="400.0" prefWidth="600.0">
+    
+    <VBox spacing="10" alignment="CENTER" AnchorPane.topAnchor="20" AnchorPane.leftAnchor="20" 
+          AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20">
+        
+        <Label text="Nouvelle Réservation" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
+        
+        <GridPane vgap="10" hgap="10">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+            
+            <Label text="Nom :" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+            <TextField fx:id="nomField" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            
+            <Label text="Email :" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <TextField fx:id="emailField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            
+            <Label text="Salle :" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <ComboBox fx:id="salleComboBox" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+            
+            <Label text="Date :" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+            <DatePicker fx:id="datePicker" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+            
+            <Label text="Horaire :" GridPane.columnIndex="0" GridPane.rowIndex="4"/>
+            <ComboBox fx:id="horaireComboBox" GridPane.columnIndex="1" GridPane.rowIndex="4"/>
+            
+            <Label text="Nombre de personnes :" GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+            <Spinner fx:id="nombrePersonneSpinner" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+        </GridPane>
+        
+        <HBox spacing="10" alignment="CENTER">
+            <Button fx:id="confirmerButton" text="Confirmer" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+            <Button fx:id="annulerButton" text="Annuler" style="-fx-background-color: #f44336; -fx-text-fill: white;"/>
+        </HBox>
+        
+    </VBox>
+    
+</AnchorPane>

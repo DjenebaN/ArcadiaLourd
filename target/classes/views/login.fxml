@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.input.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.reservation.controller.LoginController">
+    <TextField fx:id="usernameField" layoutX="100" layoutY="100" promptText="Nom d'utilisateur"/>
+    <PasswordField fx:id="passwordField" layoutX="100" layoutY="150" promptText="Mot de passe"/>
+    <Button text="Se connecter" layoutX="100" layoutY="200" onAction="#handleLogin"/>
+</AnchorPane>

@@ -1,0 +1,69 @@
+Installation et Compilation du Projet JavaFX avec Maven (macOS)
+====================================================
+
+1. Installation de Maven sur macOS
+--------------------------------
+a) Installation avec Homebrew :
+   - Ouvrir le Terminal
+   - Si Homebrew n'est pas installé :
+     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+   - Installer Maven :
+     brew install maven
+
+b) Vérification de l'installation :
+   mvn --version
+
+2. Installation de Java sur macOS
+-------------------------------
+a) Installation avec Homebrew :
+   brew install openjdk@17
+
+b) Créer un lien symbolique (nécessite les droits admin) :
+   sudo ln -sfn /opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-17.jdk
+
+c) Vérifier l'installation :
+   java --version
+
+3. Configuration de l'environnement macOS
+--------------------------------------
+a) Configurer JAVA_HOME (ajouter dans ~/.zshrc ou ~/.bash_profile) :
+   export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+   
+b) Recharger le profil :
+   source ~/.zshrc   (ou source ~/.bash_profile)
+
+4. Installation de MAMP sur macOS
+------------------------------
+a) Télécharger MAMP depuis :
+   https://www.mamp.info/en/downloads/
+
+b) Installer MAMP en suivant l'assistant d'installation
+c) Lancer MAMP et démarrer les serveurs
+
+5. Compilation et Exécution du Projet
+----------------------------------
+a) Ouvrir le Terminal et naviguer vers le projet :
+   cd /Applications/MAMP/htdocs/JavaLourd
+
+b) Nettoyer et compiler :
+   mvn clean compile
+
+c) Exécuter l'application :
+   mvn javafx:run
+
+6. Résolution des problèmes sur macOS
+----------------------------------
+- Si erreur de connexion MySQL :
+  * Vérifier que MAMP est lancé
+  * Ports par défaut : 8889 (MySQL)
+  * Utilisateur par défaut : root/root
+
+- Si JavaFX ne se lance pas :
+  * Vérifier que le path vers JavaFX est correct dans le JAVA_HOME
+  * Vérifier les permissions du dossier du projet
+
+7. Outils de développement recommandés
+-----------------------------------
+- IntelliJ IDEA (recommandé)
+- Visual Studio Code avec les extensions Java
+- Scene Builder pour l'édition des fichiers FXML
