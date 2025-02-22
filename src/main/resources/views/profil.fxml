@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.reservation.controller.ProfilController"
+      spacing="20" styleClass="profile-content">
+
+    <padding>
+        <Insets top="30" right="40" bottom="30" left="40"/>
+    </padding>
+
+    <!-- En-tête du profil -->
+    <VBox styleClass="profile-header" spacing="15" alignment="CENTER">
+        <Label text="Mon Profil" styleClass="title-label">
+            <font>
+                <Font name="System Bold" size="24"/>
+            </font>
+        </Label>
+        
+        <!-- Informations d'identification -->
+        <VBox alignment="CENTER" spacing="5">
+            <Label fx:id="userIdLabel" styleClass="info-label">
+                <font>
+                    <Font size="14"/>
+                </font>
+            </Label>
+            <Label fx:id="roleLabel" styleClass="info-label" style="-fx-text-fill: #2196F3;">
+                <font>
+                    <Font name="System Bold" size="16"/>
+                </font>
+            </Label>
+        </VBox>
+        <Separator/>
+    </VBox>
+
+    <!-- Informations personnelles -->
+    <TitledPane text="Informations Personnelles" expanded="true">
+        <VBox spacing="15">
+            <GridPane vgap="15" hgap="20">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="120" prefWidth="150"/>
+                    <ColumnConstraints minWidth="200" prefWidth="300"/>
+                </columnConstraints>
+
+                <!-- Nom -->
+                <Label text="Nom :" styleClass="field-label" 
+                    GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <TextField fx:id="nomField" styleClass="profile-field"
+                        GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+                <!-- Prénom -->
+                <Label text="Prénom :" styleClass="field-label"
+                    GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <TextField fx:id="prenomField" styleClass="profile-field"
+                        GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <!-- Email -->
+                <Label text="Email :" styleClass="field-label"
+                    GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <TextField fx:id="emailField" styleClass="profile-field"
+                        GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+            </GridPane>
+        </VBox>
+    </TitledPane>
+
+    <!-- Sécurité -->
+    <TitledPane text="Sécurité" expanded="false">
+        <VBox spacing="15">
+            <GridPane vgap="15" hgap="20">
+                <columnConstraints>
+                    <ColumnConstraints minWidth="120" prefWidth="150"/>
+                    <ColumnConstraints minWidth="200" prefWidth="300"/>
+                </columnConstraints>
+
+                <!-- Mot de passe actuel -->
+                <Label text="Mot de passe actuel :" styleClass="field-label"
+                    GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+                <PasswordField fx:id="passwordField" styleClass="profile-field"
+                            GridPane.columnIndex="1" GridPane.rowIndex="0" disable="true"/>
+
+                <!-- Nouveau mot de passe -->
+                <Label text="Nouveau mot de passe :" styleClass="field-label"
+                    GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+                <PasswordField fx:id="newPasswordField" styleClass="profile-field"
+                            GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+                <!-- Confirmation du nouveau mot de passe -->
+                <Label text="Confirmer mot de passe :" styleClass="field-label"
+                    GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+                <PasswordField fx:id="confirmPasswordField" styleClass="profile-field"
+                            GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+            </GridPane>
+        </VBox>
+    </TitledPane>
+
+    <!-- Boutons d'action -->
+    <HBox spacing="15" alignment="CENTER_RIGHT">
+        <Button text="Annuler" styleClass="cancel-button" onAction="#annulerModifications"/>
+        <Button text="Enregistrer" styleClass="save-button" onAction="#sauvegarderProfil"/>
+    </HBox>
+
+    <!-- Message d'erreur ou de succès -->
+    <Label fx:id="messageLabel" styleClass="message-label" wrapText="true"/>
+
+</VBox>

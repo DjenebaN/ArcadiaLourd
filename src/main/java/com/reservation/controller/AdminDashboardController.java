@@ -1,6 +1,7 @@
 package com.reservation.controller;
 
 import com.reservation.model.Reservation;
+import com.reservation.model.Utilisateur;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
@@ -27,6 +28,8 @@ import java.util.function.Predicate;
 
 import com.reservation.database.DatabaseConnection;
 import com.reservation.database.ReservationD;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
 
 public class AdminDashboardController implements Initializable {
 
@@ -42,10 +45,48 @@ public class AdminDashboardController implements Initializable {
     @FXML private TextField searchField;
     @FXML private Button confirmButton;
     @FXML private Button cancelButton;
+    @FXML private TabPane mainTabPane;
 
     private ReservationD reservationD;
     private ObservableList<Reservation> allReservations;
     private FilteredList<Reservation> filteredReservations;
+    private Utilisateur utilisateur;
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+        
+        // Attendre que le TabPane soit complètement chargé
+        Platform.runLater(() -> {
+            try {
+                // Charger la vue du profil
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/profil.fxml"));
+                Node profilContent = loader.load();
+                
+                // Récupérer le contrôleur et lui passer l'utilisateur
+                ProfilController profilController = loader.getController();
+                profilController.setUtilisateur(utilisateur);
+                
+                // Trouver l'onglet Profil et mettre à jour son contenu
+                for (Tab tab : mainTabPane.getTabs()) {
+                    if (tab.getText().equals("Profil")) {
+                        tab.setContent(profilContent);
+                        break;
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                showError("Erreur lors du chargement du profil", e.getMessage());
+            }
+        });
+    }
+
+    private void showError(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

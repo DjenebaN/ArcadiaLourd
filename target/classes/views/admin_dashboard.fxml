@@ -13,65 +13,77 @@
             stylesheets="@../styles/style.css">
     
     <!-- En-tête -->
-<top>
-    <VBox>
-        <fx:include source="header.fxml"/>
-        <VBox styleClass="header-section">
-            <HBox alignment="CENTER_LEFT" spacing="15">
-                <VBox>
-                    <Label text="ESCAPE ARCADIA" styleClass="title-label"/>
-                    <Label text="Système de Réservation" styleClass="subtitle-text"/>
-                </VBox>
-            </HBox>
-        </VBox>
-    </VBox>
-</top>
-
-
-    <!-- Contenu principal -->
-    <center>
-        <VBox spacing="20" styleClass="main-content">
-            <!-- Section des statistiques -->
-            <HBox spacing="20" styleClass="stats-container">
-                <VBox styleClass="stat-box" onMouseClicked="#showTodayReservations">
-                    <Label text="ESCAPE GAMES AUJOURD'HUI" styleClass="stat-label"/>
-                    <Label fx:id="todayReservationsCount" text="0" styleClass="stat-value"/>
-                    <Label text="Cliquez pour voir les détails" styleClass="stat-hint"/>
-                </VBox>
-                <VBox styleClass="stat-box" onMouseClicked="#showPendingReservations">
-                    <Label text="En attente" styleClass="stat-label"/>
-                    <Label fx:id="pendingReservationsCount" text="0" styleClass="stat-value"/>
-                    <Label text="Cliquez pour filtrer" styleClass="stat-hint"/>
-                </VBox>
-                <VBox styleClass="stat-box" onMouseClicked="#showConfirmedReservations">
-                    <Label text="Confirmées" styleClass="stat-label"/>
-                    <Label fx:id="confirmedReservationsCount" text="0" styleClass="stat-value"/>
-                    <Label text="Cliquez pour filtrer" styleClass="stat-hint"/>
-                </VBox>
-            </HBox>
-
-            <!-- Tableau des réservations -->
-            <VBox styleClass="table-container">
-                <HBox alignment="CENTER_LEFT" spacing="10" styleClass="table-header">
-                    <Label text="SALLES D'ESCAPE" styleClass="section-title"/>
-                    <Region HBox.hgrow="ALWAYS"/>
-                    <TextField fx:id="searchField" promptText="Rechercher..." styleClass="search-field"/>
+    <top>
+        <VBox>
+            <fx:include source="header.fxml"/>
+            <VBox styleClass="header-section">
+                <HBox alignment="CENTER_LEFT" spacing="15">
+                    <VBox>
+                        <Label text="ESCAPE ARCADIA" styleClass="title-label"/>
+                        <Label text="Système de Réservation" styleClass="subtitle-text"/>
+                    </VBox>
                 </HBox>
-                
-                <TableView fx:id="reservationTable" VBox.vgrow="ALWAYS" styleClass="reservation-table">
-                    <columns>
-                        <TableColumn fx:id="clientColumn" text="Client" prefWidth="200"/>
-                        <TableColumn fx:id="roomColumn" text="Salle" prefWidth="150"/>
-                        <TableColumn fx:id="dateTimeColumn" text="Date et Heure" prefWidth="200"/>
-                        <TableColumn fx:id="statusColumn" text="Statut" prefWidth="150"/>
-                        <TableColumn fx:id="action" text="Statut" prefWidth="150"/>
-                    </columns>
-                    <placeholder>
-                        <Label text="Aucune réservation trouvée" style="-fx-text-fill: -ea-text;"/>
-                    </placeholder>
-                </TableView>
             </VBox>
         </VBox>
+    </top>
+
+    <!-- Contenu principal avec TabPane -->
+    <center>
+        <TabPane fx:id="mainTabPane">
+            <tabs>
+                <Tab text="Accueil" closable="false">
+                    <content>
+                        <VBox spacing="20" styleClass="main-content">
+                            <!-- Section des statistiques -->
+                            <HBox spacing="20" styleClass="stats-container">
+                                <VBox styleClass="stat-box" onMouseClicked="#showTodayReservations">
+                                    <Label text="ESCAPE GAMES AUJOURD'HUI" styleClass="stat-label"/>
+                                    <Label fx:id="todayReservationsCount" text="0" styleClass="stat-value"/>
+                                    <Label text="Cliquez pour voir les détails" styleClass="stat-hint"/>
+                                </VBox>
+                                <VBox styleClass="stat-box" onMouseClicked="#showPendingReservations">
+                                    <Label text="En attente" styleClass="stat-label"/>
+                                    <Label fx:id="pendingReservationsCount" text="0" styleClass="stat-value"/>
+                                    <Label text="Cliquez pour filtrer" styleClass="stat-hint"/>
+                                </VBox>
+                                <VBox styleClass="stat-box" onMouseClicked="#showConfirmedReservations">
+                                    <Label text="Confirmées" styleClass="stat-label"/>
+                                    <Label fx:id="confirmedReservationsCount" text="0" styleClass="stat-value"/>
+                                    <Label text="Cliquez pour filtrer" styleClass="stat-hint"/>
+                                </VBox>
+                            </HBox>
+
+                            <!-- Tableau des réservations -->
+                            <VBox styleClass="table-container">
+                                <HBox alignment="CENTER_LEFT" spacing="10" styleClass="table-header">
+                                    <Label text="SALLES D'ESCAPE" styleClass="section-title"/>
+                                    <Region HBox.hgrow="ALWAYS"/>
+                                    <TextField fx:id="searchField" promptText="Rechercher..." styleClass="search-field"/>
+                                </HBox>
+                                
+                                <TableView fx:id="reservationTable" VBox.vgrow="ALWAYS" styleClass="reservation-table">
+                                    <columns>
+                                        <TableColumn fx:id="clientColumn" text="Client" prefWidth="200"/>
+                                        <TableColumn fx:id="roomColumn" text="Salle" prefWidth="150"/>
+                                        <TableColumn fx:id="dateTimeColumn" text="Date et Heure" prefWidth="200"/>
+                                        <TableColumn fx:id="statusColumn" text="Statut" prefWidth="150"/>
+                                        <TableColumn fx:id="action" text="Actions" prefWidth="150"/>
+                                    </columns>
+                                    <placeholder>
+                                        <Label text="Aucune réservation trouvée" style="-fx-text-fill: -ea-text;"/>
+                                    </placeholder>
+                                </TableView>
+                            </VBox>
+                        </VBox>
+                    </content>
+                </Tab>
+                <Tab text="Profil" closable="false">
+                    <content>
+                        <fx:include source="profil.fxml"/>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
     </center>
 
     <!-- Barre d'actions -->
@@ -96,5 +108,4 @@
             </Button>
         </HBox>
     </bottom>
-
 </BorderPane>
