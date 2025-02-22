@@ -6,13 +6,16 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.image.*?>
 
+
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.reservation.controller.AdminDashboardController"
             stylesheets="@../styles/style.css">
     
     <!-- En-tête -->
-    <top>
+<top>
+    <VBox>
+        <fx:include source="header.fxml"/>
         <VBox styleClass="header-section">
             <HBox alignment="CENTER_LEFT" spacing="15">
                 <VBox>
@@ -21,7 +24,9 @@
                 </VBox>
             </HBox>
         </VBox>
-    </top>
+    </VBox>
+</top>
+
 
     <!-- Contenu principal -->
     <center>

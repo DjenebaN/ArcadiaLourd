@@ -4,13 +4,18 @@ import com.reservation.model.Reservation;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import javafx.animation.ScaleTransition;
 import javafx.util.Duration;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -158,66 +163,66 @@ public class AdminDashboardController implements Initializable {
     }
 
     private void confirmReservation() {
-        Reservation selected = reservationTable.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            reservationD.updateReservationStatus(selected.getId());
-            reservationTable.refresh();
-            updateCounters();
-            showAlert(Alert.AlertType.INFORMATION, "Confirmation", 
-                     "La réservation de " + selected.getNomUtilisateur() + " a été confirmée.");
-        }
+    Reservation selected = reservationTable.getSelectionModel().getSelectedItem();
+    if (selected != null) {
+        reservationD.updateReservationStatus(selected.getId());
+        reservationTable.refresh();
+        updateCounters();
+
+        // Redirection vers l'accueil
+        redirectToAccueil();
     }
+}
 
     private void cancelReservation() {
         Reservation selected = reservationTable.getSelectionModel().getSelectedItem();
         if (selected != null) {
-            // Utilisation de try-with-resources pour gérer la connexion
             try (Connection connection = DatabaseConnection.getConnection()) {
                 
-                // Première requête pour mettre à jour l'état de l'horaire (disponible)
+                // Mise à jour de l'horaire pour le rendre disponible
                 String updateAvailabilityQuery = "UPDATE horaires SET disponible = 1 WHERE id = ?";
                 try (PreparedStatement req = connection.prepareStatement(updateAvailabilityQuery)) {
-                    req.setInt(1, selected.getHoraireId()); // Utilise l'id horaire de la réservation
+                    req.setInt(1, selected.getHoraireId());
                     int rowsAffected = req.executeUpdate();
+                    
                     if (rowsAffected > 0) {
-                        // Si la mise à jour de l'horaire a réussi, on continue avec la suppression de la réservation
+                        // Suppression de la réservation
                         String deleteReservationQuery = "DELETE FROM reservations WHERE id = ?";
                         try (PreparedStatement stmt = connection.prepareStatement(deleteReservationQuery)) {
-                            stmt.setInt(1, selected.getId()); // ID de la réservation à supprimer
+                            stmt.setInt(1, selected.getId());
                             int rowsDeleted = stmt.executeUpdate();
     
                             if (rowsDeleted > 0) {
-                                // Si la suppression de la réservation a réussi, retirer la réservation de la liste en mémoire
+                                // Mise à jour des données après suppression
                                 allReservations.remove(selected);
-                                // Rafraîchir le tableau et mettre à jour les compteurs
                                 reservationTable.refresh();
                                 updateCounters();
-                                showAlert(Alert.AlertType.INFORMATION, "Annulation", 
-                                         "La réservation de " + selected.getNomUtilisateur() + " a été annulée.");
-                            } else {
-                                showAlert(Alert.AlertType.ERROR, "Erreur", 
-                                         "Impossible d'annuler la réservation.");
+
+                                // Redirection vers l'accueil
+                                redirectToAccueil();
                             }
                         }
-                    } else {
-                        showAlert(Alert.AlertType.ERROR, "Erreur", 
-                                 "Impossible de mettre à jour l'horaire. La réservation n'a pas été annulée.");
                     }
                 }
             } catch (SQLException e) {
-                // Si une erreur SQL survient, afficher une alerte
-                showAlert(Alert.AlertType.ERROR, "Erreur de base de données", 
-                         "Une erreur est survenue lors de l'annulation de la réservation : " + e.getMessage());
                 e.printStackTrace();
             }
         }
     }
+
+    private void redirectToAccueil() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/accueil.fxml"));
+            Parent root = loader.load();
     
-    private void showAlert(Alert.AlertType type, String title, String content) {
-        Alert alert = new Alert(type);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(content);
-        alert.showAndWait();
+            // Récupérer la fenêtre actuelle
+            Stage stage = (Stage) reservationTable.getScene().getWindow();
+    
+            // Changer la scène
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

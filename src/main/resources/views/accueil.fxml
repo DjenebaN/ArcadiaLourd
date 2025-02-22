@@ -5,21 +5,25 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.layout.Region?>
 
 <StackPane xmlns="http://javafx.com/javafx"
           xmlns:fx="http://javafx.com/fxml"
           fx:controller="com.reservation.controller.AccueilController"
           prefWidth="600" prefHeight="400"
           style="-fx-background-color: white;">
+    
     <VBox alignment="CENTER" spacing="20">
         <padding>
             <Insets top="20" right="20" bottom="20" left="20"/>
         </padding>
+
         <Text text="Bienvenue dans le système de réservation" style="-fx-fill: #2c3e50;">
             <font>
                 <Font size="24"/>
             </font>
         </Text>
+
         <Button text="Voir les réservations" 
                 onAction="#voir"
                 style="-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-size: 16px; -fx-padding: 10 20; -fx-background-radius: 5;"/>

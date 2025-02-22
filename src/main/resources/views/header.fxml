@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+
+<HBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" spacing="20" style="-fx-background-color: #2c3e50; -fx-padding: 10;">
+    <!-- Logo ou Titre -->
+    <Label text="Mon Application" style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;"/>
+
+    <!-- Barre de Navigation -->
+    <Region style="-fx-background-color: #34495e; -fx-min-width: 1; -fx-max-width: 1; -fx-pref-width: 1;"/>
+    <HBox spacing="10">
+        <Button text="Accueil" style="-fx-background-color: #34495e; -fx-text-fill: white;"/>
+        <Button text="Reservations" style="-fx-background-color: #34495e; -fx-text-fill: white;"/>
+        <Button text="Mon Profil" style="-fx-background-color: #34495e; -fx-text-fill: white;"/>
+    </HBox>
+</HBox>
