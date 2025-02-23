@@ -10,5 +10,4 @@
 
     <!-- Barre de Navigation -->
     <Region style="-fx-background-color: #34495e; -fx-min-width: 1; -fx-max-width: 1; -fx-pref-width: 1;"/>
-    
 </HBox>
