@@ -10,9 +10,5 @@
 
     <!-- Barre de Navigation -->
     <Region style="-fx-background-color: #34495e; -fx-min-width: 1; -fx-max-width: 1; -fx-pref-width: 1;"/>
-    <HBox spacing="10">
-        <Button text="Accueil" style="-fx-background-color: #34495e; -fx-text-fill: white;"/>
-        <Button text="Reservations" style="-fx-background-color: #34495e; -fx-text-fill: white;"/>
-        <Button text="Mon Profil" style="-fx-background-color: #34495e; -fx-text-fill: white;"/>
-    </HBox>
+    
 </HBox>

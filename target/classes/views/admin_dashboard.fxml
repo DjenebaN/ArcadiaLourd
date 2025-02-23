@@ -6,7 +6,6 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.image.*?>
 
-
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.reservation.controller.AdminDashboardController"
@@ -54,7 +53,7 @@
                             </HBox>
 
                             <!-- Tableau des réservations -->
-                            <VBox styleClass="table-container">
+                            <VBox styleClass="table-container" VBox.vgrow="ALWAYS">
                                 <HBox alignment="CENTER_LEFT" spacing="10" styleClass="table-header">
                                     <Label text="SALLES D'ESCAPE" styleClass="section-title"/>
                                     <Region HBox.hgrow="ALWAYS"/>
@@ -89,6 +88,9 @@
     <!-- Barre d'actions -->
     <bottom>
         <HBox spacing="10" styleClass="action-bar">
+            <padding>
+                <Insets top="10" right="20" bottom="10" left="20"/>
+            </padding>
             <Region HBox.hgrow="ALWAYS"/>
             <Button fx:id="confirmButton" text="VALIDER L'AVENTURE" 
                     styleClass="confirm-button">
