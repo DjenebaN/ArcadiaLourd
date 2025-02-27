@@ -18,7 +18,7 @@
             <Insets top="20" right="20" bottom="20" left="20"/>
         </padding>
 
-        <Text text="Bienvenue dans le système de réservation" style="-fx-fill: #2c3e50;">
+        <Text text="Bienvenue" style="-fx-fill: #2c3e50;">
             <font>
                 <Font size="24"/>
             </font>
