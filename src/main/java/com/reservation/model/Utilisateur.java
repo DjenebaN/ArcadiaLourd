@@ -80,14 +80,14 @@ public class Utilisateur {
 
     // Méthodes pour vérifier le type d'utilisateur
     public boolean estAdmin() {
-        return this.typeUtilisateur == 1;
+        return this.typeUtilisateur == 3;
     }
 
     public boolean estClient() {
-        return this.typeUtilisateur == 2;
+        return this.typeUtilisateur == 1;
     }
 
     public boolean estGameMaster() {
-        return this.typeUtilisateur == 3;
+        return this.typeUtilisateur == 2;
     }
 }
