@@ -1,6 +1,7 @@
 package com.reservation.controller;
 
 import com.reservation.model.Reservation;
+import com.reservation.model.Utilisateur;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
@@ -27,25 +28,65 @@ import java.util.function.Predicate;
 
 import com.reservation.database.DatabaseConnection;
 import com.reservation.database.ReservationD;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
 
 public class AdminDashboardController implements Initializable {
 
     @FXML private TableView<Reservation> reservationTable;
     @FXML private TableColumn<Reservation, String> clientColumn;
     @FXML private TableColumn<Reservation, String> roomColumn;
-    @FXML private TableColumn<Reservation, String> dateTimeColumn;
+    @FXML private TableColumn<Reservation, String> heureDebutColumn;
+    @FXML private TableColumn<Reservation, String> heureFinColumn;
     @FXML private TableColumn<Reservation, String> statusColumn;
-    @FXML private TableColumn<Reservation, String> action;
     @FXML private Label todayReservationsCount;
     @FXML private Label pendingReservationsCount;
     @FXML private Label confirmedReservationsCount;
     @FXML private TextField searchField;
     @FXML private Button confirmButton;
     @FXML private Button cancelButton;
+    @FXML private TabPane mainTabPane;
 
     private ReservationD reservationD;
     private ObservableList<Reservation> allReservations;
     private FilteredList<Reservation> filteredReservations;
+    private Utilisateur utilisateur;
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+        
+        // Attendre que le TabPane soit complètement chargé
+        Platform.runLater(() -> {
+            try {
+                // Charger la vue du profil
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/profil.fxml"));
+                Node profilContent = loader.load();
+                
+                // Récupérer le contrôleur et lui passer l'utilisateur
+                ProfilController profilController = loader.getController();
+                profilController.setUtilisateur(utilisateur);
+                
+                // Trouver l'onglet Profil et mettre à jour son contenu
+                for (Tab tab : mainTabPane.getTabs()) {
+                    if (tab.getText().equals("Profil")) {
+                        tab.setContent(profilContent);
+                        break;
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+                showError("Erreur lors du chargement du profil", e.getMessage());
+            }
+        });
+    }
+
+    private void showError(String title, String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -54,9 +95,18 @@ public class AdminDashboardController implements Initializable {
         clientColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNomUtilisateur()));
         roomColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNomSalle()));
         statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNomStatus()));
-        dateTimeColumn.setCellValueFactory(cellData -> {
-            LocalDateTime dateTime = cellData.getValue().getDateReservation();
-            return new SimpleStringProperty(dateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+        
+        // Configuration des colonnes d'horaires avec date et heure
+        heureDebutColumn.setCellValueFactory(cellData -> {
+            LocalDateTime heureDebut = cellData.getValue().getHeureDebut();
+            return new SimpleStringProperty(heureDebut != null ? 
+                heureDebut.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) : "");
+        });
+
+        heureFinColumn.setCellValueFactory(cellData -> {
+            LocalDateTime heureFin = cellData.getValue().getHeureFin();
+            return new SimpleStringProperty(heureFin != null ? 
+                heureFin.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")) : "");
         });
 
         loadTestData();
@@ -84,11 +134,25 @@ public class AdminDashboardController implements Initializable {
                 }
 
                 String lowerCaseFilter = newValue.toLowerCase();
+                String heureDebutStr = "";
+                String heureFinStr = "";
+
+                if (reservation.getHeureDebut() != null) {
+                    heureDebutStr = reservation.getHeureDebut()
+                        .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
+                        .toLowerCase();
+                }
+
+                if (reservation.getHeureFin() != null) {
+                    heureFinStr = reservation.getHeureFin()
+                        .format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
+                        .toLowerCase();
+                }
 
                 return reservation.getNomUtilisateur().toLowerCase().contains(lowerCaseFilter) ||
                        reservation.getNomSalle().toLowerCase().contains(lowerCaseFilter) ||
-                       reservation.getDateReservation().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))
-                           .toLowerCase().contains(lowerCaseFilter);
+                       heureDebutStr.contains(lowerCaseFilter) ||
+                       heureFinStr.contains(lowerCaseFilter);
             });
             updateCounters();
         });
@@ -114,15 +178,18 @@ public class AdminDashboardController implements Initializable {
 
     private void updateCounters() {
         long todayCount = filteredReservations.stream()
-            .filter(r -> r.getDateReservation().toLocalDate().equals(LocalDateTime.now().toLocalDate()))
+            .filter(r -> r.getHeureDebut() != null && 
+                    r.getHeureDebut().toLocalDate().equals(LocalDateTime.now().toLocalDate()))
             .count();
 
         long pendingCount = filteredReservations.stream()
-            .filter(r -> r.getStatusName().equalsIgnoreCase("En Attente")) // Ajuste selon ton statut exact
+            .filter(r -> r.getNomStatus() != null && 
+                    r.getNomStatus().equalsIgnoreCase("En Attente"))
             .count();
 
         long confirmedCount = filteredReservations.stream()
-            .filter(r -> r.getStatusName().equalsIgnoreCase("Validée")) // Ajuste selon ton statut exact
+            .filter(r -> r.getNomStatus() != null && 
+                    r.getNomStatus().equalsIgnoreCase("Validée"))
             .count();
 
         todayReservationsCount.setText(String.valueOf(todayCount));
@@ -132,19 +199,22 @@ public class AdminDashboardController implements Initializable {
 
     @FXML
     public void showTodayReservations() {
-        applyFilter(r -> r.getDateReservation().toLocalDate().equals(LocalDateTime.now().toLocalDate()));
+        applyFilter(r -> r.getHeureDebut() != null && 
+                r.getHeureDebut().toLocalDate().equals(LocalDateTime.now().toLocalDate()));
         animateClick(todayReservationsCount.getParent());
     }
 
     @FXML
     public void showPendingReservations() {
-        applyFilter(r -> true);
+        applyFilter(r -> r.getNomStatus() != null && 
+                r.getNomStatus().equalsIgnoreCase("En Attente"));
         animateClick(pendingReservationsCount.getParent());
     }
 
     @FXML
     public void showConfirmedReservations() {
-        applyFilter(r -> true);
+        applyFilter(r -> r.getNomStatus() != null && 
+                r.getNomStatus().equalsIgnoreCase("Validée"));
         animateClick(confirmedReservationsCount.getParent());
     }
 

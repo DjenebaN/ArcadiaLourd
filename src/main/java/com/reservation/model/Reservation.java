@@ -18,10 +18,28 @@ public class Reservation {
     private String nom_utilisateur; // Pour l'affichage
     private String nom_salle;      // Pour l'affichage
     private String status_nom;
+    private LocalDateTime heure_debut; 
+    private LocalDateTime heure_fin;   
 
+    // Constructeur par défaut
+    public Reservation() {
+    }
+
+    // Constructeur sans les horaires (pour la compatibilité)
     public Reservation(int id, int utilisateur_id, int salle_id, int horaire_id,
                      int nb_participants, LocalDateTime date_reservation, 
-                     int prix_total, String nom_utilisateur, String nom_salle, String status_nom) {
+                     int prix_total, String nom_utilisateur, String nom_salle, 
+                     String status_nom) {
+        this(id, utilisateur_id, salle_id, horaire_id, nb_participants, 
+             date_reservation, prix_total, nom_utilisateur, nom_salle, 
+             status_nom, null, null);
+    }
+
+    // Constructeur complet avec les horaires
+    public Reservation(int id, int utilisateur_id, int salle_id, int horaire_id,
+                     int nb_participants, LocalDateTime date_reservation, 
+                     int prix_total, String nom_utilisateur, String nom_salle, 
+                     String status_nom, LocalDateTime heure_debut, LocalDateTime heure_fin) {
         this.id = id;
         this.utilisateur_id = utilisateur_id;
         this.salle_id = salle_id;
@@ -32,6 +50,8 @@ public class Reservation {
         this.nom_utilisateur = nom_utilisateur;
         this.nom_salle = nom_salle;
         this.status_nom = status_nom;
+        this.heure_debut = heure_debut;
+        this.heure_fin = heure_fin;
     }
 
     public class ReservationDAO {
@@ -83,6 +103,22 @@ public class Reservation {
 
     public String getNomStatus() { return status_nom; }
     public void setNomStatus(String status_nom) { this.status_nom = status_nom; }
+    
+    public LocalDateTime getHeureDebut() {
+        return heure_debut;
+    }
+
+    public void setHeureDebut(LocalDateTime heure_debut) {
+        this.heure_debut = heure_debut;
+    }
+
+    public LocalDateTime getHeureFin() {
+        return heure_fin;
+    }
+
+    public void setHeureFin(LocalDateTime heure_fin) {
+        this.heure_fin = heure_fin;
+    }
     
     // Méthodes de compatibilité pour l'interface
     public String getClientName() { return nom_utilisateur; }

@@ -2,6 +2,8 @@
 /Users/djebel/Documents/ArcadiaLourd/src/main/java/com/reservation/controller/AccueilController.java
 /Users/djebel/Documents/ArcadiaLourd/src/main/java/com/reservation/controller/AdminDashboardController.java
 /Users/djebel/Documents/ArcadiaLourd/src/main/java/com/reservation/controller/LoginController.java
+/Users/djebel/Documents/ArcadiaLourd/src/main/java/com/reservation/controller/ProfilController.java
 /Users/djebel/Documents/ArcadiaLourd/src/main/java/com/reservation/database/DatabaseConnection.java
 /Users/djebel/Documents/ArcadiaLourd/src/main/java/com/reservation/database/ReservationD.java
 /Users/djebel/Documents/ArcadiaLourd/src/main/java/com/reservation/model/Reservation.java
+/Users/djebel/Documents/ArcadiaLourd/src/main/java/com/reservation/model/Utilisateur.java
