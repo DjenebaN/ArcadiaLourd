@@ -49,6 +49,9 @@
                             <Label fx:id="confirmedReservationsCount" text="0" styleClass="stat-value"/>
                             <Label text="Cliquez pour filtrer" styleClass="stat-hint"/>
                         </VBox>
+                        <VBox styleClass="stat-box">
+                            <Button text="Voir les utilisateurs" styleClass="action-button" onAction="#handleShowUsers"/>
+                        </VBox>
                     </HBox>
 
                     <!-- Tableau des réservations -->
@@ -71,6 +74,7 @@
                                 <Label text="Aucune réservation trouvée" style="-fx-text-fill: -ea-text;"/>
                             </placeholder>
                         </TableView>
+
                     </VBox>
                 </VBox>
             </Tab>

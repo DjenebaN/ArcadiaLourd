@@ -4,6 +4,7 @@ import com.reservation.model.Reservation;
 import com.reservation.model.Utilisateur;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,7 +30,6 @@ import java.util.function.Predicate;
 import com.reservation.database.DatabaseConnection;
 import com.reservation.database.ReservationD;
 import javafx.application.Platform;
-import javafx.scene.control.Alert;
 
 public class AdminDashboardController implements Initializable {
 
@@ -87,6 +87,28 @@ public class AdminDashboardController implements Initializable {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+    @FXML
+    private void handleShowUsers(ActionEvent event) {
+        try {
+            // Chargement de l'écran utilisateurs
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/utilisateurs.fxml"));
+            if (loader.getLocation() == null) {
+                System.out.println("Le fichier FXML n'a pas été trouvé à l'emplacement spécifié.");
+            }
+            Parent usersPage = loader.load();
+    
+            // Obtenir la scène actuelle
+            Scene currentScene = ((Node) event.getSource()).getScene();
+            // Récupérer le stage (fenêtre)
+            Stage stage = (Stage) currentScene.getWindow();
+            // Changer la scène
+            stage.setScene(new Scene(usersPage));
+        } catch (IOException e) {
+            e.printStackTrace();
+            showError("Erreur de navigation", "Impossible de charger la page utilisateurs.");
+        }
+    }    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

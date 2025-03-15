@@ -12,8 +12,8 @@ public class Utilisateur {
     private String prenom;
     private String email;
     private String motDePasse;
-    private int typeUtilisateur; // 1: Admin, 2: Client, 3: GameMaster
-
+    private int typeUtilisateur;
+    
     // Constructeur pour la connexion
     public Utilisateur(String email, String motDePasse) {
         this.email = email;
@@ -80,7 +80,7 @@ public class Utilisateur {
 
     // Méthodes pour vérifier le type d'utilisateur
     public boolean estAdmin() {
-        return this.typeUtilisateur == 1;
+        return this.typeUtilisateur == 3;
     }
 
     public boolean estClient() {
@@ -88,6 +88,6 @@ public class Utilisateur {
     }
 
     public boolean estGameMaster() {
-        return this.typeUtilisateur == 3;
+        return this.typeUtilisateur == 1;
     }
 }

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.image.*?>
+
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.reservation.controller.UtilisateurDashboardController"
+            stylesheets="@../styles/style.css">
+    
+    <!-- En-tête -->
+<top>
+    <VBox>
+        <fx:include source="header.fxml"/>
+        <VBox styleClass="header-section">
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <VBox>
+                    <Label text="ESCAPE ARCADIA" styleClass="title-label"/>
+                    <Label text="Système de Réservation" styleClass="subtitle-text"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </VBox>
+</top>
+
+    <center>
+        <TabPane fx:id="mainTabPane" styleClass="main-tab-pane">
+            <Tab text="Tableau de bord" closable="false">
+                <VBox spacing="20" styleClass="main-content">
+
+                    <VBox styleClass="table-container">
+                        <HBox alignment="CENTER_LEFT" spacing="10" styleClass="table-header">
+                            <Label text="CLIENTS" styleClass="section-title"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <TextField fx:id="searchField" promptText="Rechercher..." styleClass="search-field"/>
+                        </HBox>
+                        
+                        <TableView fx:id="utilisateurTable" VBox.vgrow="ALWAYS" styleClass="reservation-table">
+                            <columns>
+                                <TableColumn fx:id="nomColumn" text="Nom" prefWidth="150"/>
+                                <TableColumn fx:id="prenomColumn" text="Prenom" prefWidth="120"/>
+                                <TableColumn fx:id="emailColumn" text="Email" prefWidth="150"/>
+                                <TableColumn fx:id="typeColumn" text="Type" prefWidth="150"/>
+                            </columns>
+                            <placeholder>
+                                <Label text="Aucun utilisateurs trouvés" style="-fx-text-fill: -ea-text;"/>
+                            </placeholder>
+                        </TableView>
+
+
+                    </VBox>
+                </VBox>
+            </Tab>
+            <Tab text="Profil" closable="false">
+                <fx:include source="profil.fxml"/>
+            </Tab>
+        </TabPane>
+    </center>
+
+    <!-- Barre d'actions -->
+    <bottom>
+        <HBox spacing="10" styleClass="action-bar">
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="cancelButton" text="SUPPRIMER"
+                    styleClass="cancel-button">
+                <graphic>
+                    <ImageView fitHeight="16" fitWidth="16">
+                        <Image url="@../images/cancel-icon.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+        </HBox>
+    </bottom>
+
+</BorderPane>
