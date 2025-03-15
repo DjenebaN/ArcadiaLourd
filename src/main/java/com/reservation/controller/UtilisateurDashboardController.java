@@ -2,7 +2,6 @@ package com.reservation.controller;
 
 import com.reservation.model.Utilisateur;
 
-
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,6 +33,7 @@ public class UtilisateurDashboardController implements Initializable {
     @FXML private TableColumn<Utilisateur, String> typeColumn;
     @FXML private TextField searchField;  
     @FXML private Button cancelButton;
+    @FXML private Button backButton;
     @FXML private TabPane mainTabPane;
 
     private UtilisateurD utilisateurD; 
@@ -80,7 +80,16 @@ public class UtilisateurDashboardController implements Initializable {
         nomColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNom()));
         prenomColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPrenom()));
         emailColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmail()));
-        typeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().getTypeUtilisateur()))); // Conversion en String
+        typeColumn.setCellValueFactory(cellData -> {
+            int type = cellData.getValue().getTypeUtilisateur();
+            String typeText = switch (type) {
+                case 1 -> "gamemaster";
+                case 2 -> "utilisateur";
+                case 3 -> "admin";
+                default -> "inconnu";
+            };
+            return new SimpleStringProperty(typeText);
+        });
 
         loadTestData(); 
 
@@ -97,6 +106,27 @@ public class UtilisateurDashboardController implements Initializable {
     private void setupButtons() {
         cancelButton.setDisable(true);
         cancelButton.setOnAction(e -> cancelUtilisateur());
+        
+        // Configuration du bouton retour
+        backButton.setOnAction(e -> handleBack());
+    }
+
+    @FXML
+    private void handleBack() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/accueil.fxml"));
+            Parent root = loader.load();
+            
+            // Obtenir la scène actuelle
+            Scene currentScene = backButton.getScene();
+            // Récupérer le stage (fenêtre)
+            Stage stage = (Stage) currentScene.getWindow();
+            // Changer la scène
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+            showError("Erreur de navigation", "Impossible de retourner à la page précédente.");
+        }
     }
 
     private void setupTableSelection() {

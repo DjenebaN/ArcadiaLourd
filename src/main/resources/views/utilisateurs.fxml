@@ -64,6 +64,13 @@
     <!-- Barre d'actions -->
     <bottom>
         <HBox spacing="10" styleClass="action-bar">
+            <Button fx:id="backButton" text="RETOUR" styleClass="back-button">
+                <graphic>
+                    <ImageView fitHeight="16" fitWidth="16">
+                        <Image url="@../images/back-icon.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
             <Region HBox.hgrow="ALWAYS"/>
             <Button fx:id="cancelButton" text="SUPPRIMER"
                     styleClass="cancel-button">
