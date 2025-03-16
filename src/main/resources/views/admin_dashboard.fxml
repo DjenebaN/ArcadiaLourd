@@ -52,12 +52,15 @@
                         <VBox styleClass="stat-box">
                             <Button text="Voir les utilisateurs" styleClass="action-button" onAction="#handleShowUsers"/>
                         </VBox>
+                        <VBox styleClass="stat-box">
+                            <Button text="Voir les salles" styleClass="action-button" onAction="#handleShowSalles"/>
+                        </VBox>
                     </HBox>
 
                     <!-- Tableau des réservations -->
                     <VBox styleClass="table-container">
                         <HBox alignment="CENTER_LEFT" spacing="10" styleClass="table-header">
-                            <Label text="SALLES D'ESCAPE" styleClass="section-title"/>
+                            <Label text="RESERVATIONS" styleClass="section-title"/>
                             <Region HBox.hgrow="ALWAYS"/>
                             <TextField fx:id="searchField" promptText="Rechercher..." styleClass="search-field"/>
                         </HBox>

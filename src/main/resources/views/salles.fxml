@@ -9,9 +9,8 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.reservation.controller.UtilisateurDashboardController"
-            stylesheets="@../styles/style.css">
-    
+            fx:controller="com.reservation.controller.SalleDashboardController"
+            stylesheets="@../styles/style.css">    
     <!-- En-tête -->
 <top>
     <VBox>
@@ -32,19 +31,23 @@
             <Tab text="Tableau de bord" closable="false">
                 <VBox spacing="20" styleClass="main-content">
 
+                    <VBox styleClass="stat-box">
+                            <Button text="Ajouter une salle" styleClass="action-button" onAction="#addSalle"/>
+                    </VBox>
+
                     <VBox styleClass="table-container">
                         <HBox alignment="CENTER_LEFT" spacing="10" styleClass="table-header">
-                            <Label text="CLIENTS" styleClass="section-title"/>
+                            <Label text="SALLES" styleClass="section-title"/>
                             <Region HBox.hgrow="ALWAYS"/>
-                            <TextField fx:id="searchField" promptText="Rechercher..." styleClass="search-field"/>
                         </HBox>
                         
-                        <TableView fx:id="utilisateurTable" VBox.vgrow="ALWAYS" styleClass="reservation-table">
+                        <TableView fx:id="salleTable" VBox.vgrow="ALWAYS" styleClass="reservation-table">
                             <columns>
                                 <TableColumn fx:id="nomColumn" text="Nom" prefWidth="150"/>
-                                <TableColumn fx:id="prenomColumn" text="Prenom" prefWidth="120"/>
-                                <TableColumn fx:id="emailColumn" text="Email" prefWidth="150"/>
-                                <TableColumn fx:id="typeColumn" text="Type" prefWidth="150"/>
+                                <TableColumn fx:id="descColumn" text="Infos" prefWidth="120"/>
+                                <TableColumn fx:id="dureeColumn" text="Durée" prefWidth="150"/>
+                                <TableColumn fx:id="joueurColumn" text="nb Max" prefWidth="150"/>
+                                <TableColumn fx:id="prixColumn" text="Prix" prefWidth="150"/>
                             </columns>
                             <placeholder>
                                 <Label text="Aucun utilisateurs trouvés" style="-fx-text-fill: -ea-text;"/>
@@ -61,6 +64,7 @@
         </TabPane>
     </center>
 
+    <!-- Barre d'actions -->
     <bottom>
         <HBox spacing="10" styleClass="action-bar">
             <Button fx:id="backButton" text="RETOUR" styleClass="back-button">

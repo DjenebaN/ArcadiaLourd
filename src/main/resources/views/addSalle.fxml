@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.image.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.reservation.controller.SalleDashboardController"
+            stylesheets="@../styles/style.css">
+
+    <!-- En-tête -->
+    <top>
+        <VBox>
+            <fx:include source="header.fxml"/>
+            <VBox styleClass="header-section">
+                <HBox alignment="CENTER_LEFT" spacing="15">
+                    <VBox>
+                        <Label text="ESCAPE ARCADIA" styleClass="title-label"/>
+                        <Label text="Système de Réservation" styleClass="subtitle-text"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+        </VBox>
+    </top>
+
+    <center>
+        <TabPane fx:id="mainTabPane" styleClass="main-tab-pane">
+            <Tab text="Tableau de bord" closable="false">
+                <VBox spacing="20" styleClass="main-content">
+
+                    <VBox styleClass="table-container">
+                        <HBox alignment="CENTER_LEFT" spacing="10" styleClass="table-header">
+                            <Label text="AJOUT SALLE" styleClass="section-title"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                        </HBox>
+
+                        <GridPane fx:id="addSalleForm" style="-fx-padding: 20;">
+                            <Label text="Nom de la salle" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                            <TextField fx:id="nomField" promptText="Nom de la salle" GridPane.rowIndex="0" GridPane.columnIndex="1" prefWidth="300"/>
+
+                            <Label text="Description" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                            <TextArea fx:id="descriptionField" promptText="Description de la salle" GridPane.rowIndex="1" GridPane.columnIndex="1" prefHeight="100" prefWidth="300"/>
+
+                            <Label text="Durée" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                            <TextField fx:id="dureeField" promptText="Durée" GridPane.rowIndex="2" GridPane.columnIndex="1" prefWidth="300"/>
+
+                            <Label text="Nombre minimum de joueurs" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                            <TextField fx:id="nbJoueursMinField" promptText="Min. joueurs" GridPane.rowIndex="3" GridPane.columnIndex="1" prefWidth="300"/>
+
+                            <Label text="Nombre maximum de joueurs" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                            <TextField fx:id="nbJoueursMaxField" promptText="Max. joueurs" GridPane.rowIndex="4" GridPane.columnIndex="1" prefWidth="300"/>
+
+                            <Label text="Prix" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                            <TextField fx:id="prixField" promptText="Prix" GridPane.rowIndex="5" GridPane.columnIndex="1" prefWidth="300"/>
+
+                            <HBox spacing="10" alignment="CENTER_RIGHT" GridPane.rowIndex="6" GridPane.columnSpan="2">
+                                <Button fx:id="submitButton" text="Ajouter" onAction="#submitSalle" styleClass="button"/>
+                            </HBox>
+                        </GridPane>
+
+                    </VBox>
+                </VBox>
+            </Tab>
+            <Tab text="Profil" closable="false">
+                <fx:include source="profil.fxml"/>
+            </Tab>
+        </TabPane>
+    </center>
+
+    <!-- Barre d'actions -->
+    <bottom>
+        <HBox spacing="10" styleClass="action-bar">
+            <Button fx:id="backButton" text="RETOUR" styleClass="back-button">
+                <graphic>
+                    <ImageView fitHeight="16" fitWidth="16">
+                        <Image url="@../images/back-icon.png"/>
+                    </ImageView>
+                </graphic>
+            </Button>
+            <Region HBox.hgrow="ALWAYS"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

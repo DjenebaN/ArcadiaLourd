@@ -61,7 +61,6 @@
         </TabPane>
     </center>
 
-    <!-- Barre d'actions -->
     <bottom>
         <HBox spacing="10" styleClass="action-bar">
             <Button fx:id="backButton" text="RETOUR" styleClass="back-button">

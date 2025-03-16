@@ -76,7 +76,6 @@ public class UtilisateurDashboardController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         utilisateurD = new UtilisateurD();
 
-        // Configuration des colonnes
         nomColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getNom()));
         prenomColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPrenom()));
         emailColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getEmail()));
@@ -107,7 +106,6 @@ public class UtilisateurDashboardController implements Initializable {
         cancelButton.setDisable(true);
         cancelButton.setOnAction(e -> cancelUtilisateur());
         
-        // Configuration du bouton retour
         backButton.setOnAction(e -> handleBack());
     }
 
@@ -117,11 +115,8 @@ public class UtilisateurDashboardController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/accueil.fxml"));
             Parent root = loader.load();
             
-            // Obtenir la scène actuelle
             Scene currentScene = backButton.getScene();
-            // Récupérer le stage (fenêtre)
             Stage stage = (Stage) currentScene.getWindow();
-            // Changer la scène
             stage.setScene(new Scene(root));
         } catch (IOException e) {
             e.printStackTrace();

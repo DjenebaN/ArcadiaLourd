@@ -108,7 +108,29 @@ public class AdminDashboardController implements Initializable {
             e.printStackTrace();
             showError("Erreur de navigation", "Impossible de charger la page utilisateurs.");
         }
-    }    
+    }   
+    
+    @FXML
+    private void handleShowSalles(ActionEvent event) {
+        try {
+            // Chargement de l'écran utilisateurs
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/salles.fxml"));
+            if (loader.getLocation() == null) {
+                System.out.println("Le fichier FXML n'a pas été trouvé à l'emplacement spécifié.");
+            }
+            Parent sallesPage = loader.load();
+    
+            // Obtenir la scène actuelle
+            Scene currentScene = ((Node) event.getSource()).getScene();
+            // Récupérer le stage (fenêtre)
+            Stage stage = (Stage) currentScene.getWindow();
+            // Changer la scène
+            stage.setScene(new Scene(sallesPage));
+        } catch (IOException e) {
+            e.printStackTrace();
+            showError("Erreur de navigation", "Impossible de charger la page salles.");
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
