@@ -164,7 +164,7 @@ private void submitSalle(ActionEvent event) {
         clearForm();
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/acceuil.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/accueil.fxml"));
             Parent accueilPage = loader.load();
             
             Scene currentScene = ((Node) event.getSource()).getScene();
